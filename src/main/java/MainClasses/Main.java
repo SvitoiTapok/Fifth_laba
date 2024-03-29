@@ -14,7 +14,7 @@ public class Main {
         //Map<Integer, MainClasses.Product> products = new HashMap<>();
 
         ProductCollection.PRODUCT_COLLECTION.getData();
-        CommandReader.readCommands(new Scanner(System.in));
+        CommandReader.readCommands();
 
 
 

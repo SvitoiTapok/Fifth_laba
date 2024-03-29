@@ -1,15 +1,6 @@
-show
-black
-usa
-show
-show
-info
+write 1
+execute_script commands
+write 2
 add
-asdf
-exit
-
-adf
-8 8
-exit
-adf
-show
+dfadfas
+7 7

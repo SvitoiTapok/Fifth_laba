@@ -157,13 +157,13 @@ public class Product implements Comparable<Product> {
         messages.add("Введите цену продукта(она может быть не целой, но обязательно положительной)");
         messages.add("Введите единицу измерения продукта(введите одно из 3-х слов: kilograms, grams, square_meters)");
         messages.add("Введите имя владельца(ввод не может быть пустым)");
-        messages.add("Введите ID паспорта владельца(не может быть пустым)");
+        messages.add("Введите ID паспорта владельца");
         messages.add("Введите цвет глаз владельца(введите одно из 3-х слов: green, white, brown. Цвет глаз может быть null)");
-        messages.add("Введите цвет волос владельца(введите одно из 4-х слов: green, black, orange, white. Цвет глаз может быть null)");
+        messages.add("Введите цвет волос владельца(введите одно из 4-х слов: green, black, orange, white. Цвет волос может быть null)");
         messages.add("Введите национальность владельца(введите одно из 5 слов: united_kingdom, usa, spain, italy, north_korea)");
 
-
-        System.out.println("Пожалуйста, следуйте указаниям по вводу, чтобы создать новый продукт. Если вы хотите прервать ввод и вернуться к другим командам, введите stop. \nТакже вы можете вернуться к предыдущему параметру, введя z(но будьте осторожны! предыдущее значение будет стерто. Для введения в поле значения null просто введите пустую строку");
+        if(!CommandReader.isFileReading)
+            System.out.println("Пожалуйста, следуйте указаниям по вводу, чтобы создать новый продукт. Если вы хотите прервать ввод и вернуться к другим командам, введите stop. \nТакже вы можете вернуться к предыдущему параметру, введя z(но будьте осторожны! предыдущее значение будет стерто. Для введения в поле значения null просто введите пустую строку");
         String input="";
         while (step != -1 && step != 9) {
 //            if(CommandReader.isFileReading && !sc.hasNextLine()){
@@ -171,7 +171,9 @@ public class Product implements Comparable<Product> {
 //                break;
 //            }
             try {
-                System.out.println(messages.get(step));
+                if(!CommandReader.isFileReading) {
+                    System.out.println(messages.get(step));
+                }
                 input = sc.nextLine();
                 //System.out.println(input);
                 if (input.equals("stop")) {
@@ -247,7 +249,7 @@ public class Product implements Comparable<Product> {
 
                 }
             }catch (NoSuchElementException e){
-                System.out.println("файл кончился, процесс создания пробукта не завершен");
+                System.out.println("файл кончился, процесс создания продукта не завершен");
                 Product.ID.remove(addedProduct.getId());
                 return null;
             }
@@ -275,7 +277,6 @@ public class Product implements Comparable<Product> {
         return product.name != null && product.coordinates != null &&
                 !(product.coordinates.getX() < -626) && product.coordinates.getY() <= 677 && product.coordinates.getY() != null &&
                 product.price != null && product.price >= 0 && product.unitOfMeasure != null && product.owner != null &&
-                product.owner.getName() != null && !product.owner.getName().isEmpty() && product.owner.getPassportID() != null &&
-                product.owner.getEyeColor() != null && product.owner.getHairColor() != null && product.owner.getNationality() != null;
+                product.owner.getName() != null && !product.owner.getName().isEmpty() && product.owner.getPassportID() != null && product.owner.getNationality() != null;
     }
 }

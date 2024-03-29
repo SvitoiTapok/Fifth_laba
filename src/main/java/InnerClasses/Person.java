@@ -99,10 +99,10 @@ public class Person implements Comparable<Person>{
         Person productOwner = new Person();
         int step = 0;
         List<String> messages = new ArrayList<>();
-        messages.add("Введите имя владельца");
-        messages.add("Введите ID паспорта владельца(не может быть пустым)");
-        messages.add("Введите цвет глаз владельца(введите одно из 3-х слов: green, white, brown");
-        messages.add("Введите цвет волос владельца(введите одно из 4-х слов: green, black, orange, white");
+        messages.add("Введите имя владельца(не может быть пустым)");
+        messages.add("Введите ID паспорта владельца");
+        messages.add("Введите цвет глаз владельца(введите одно из 3-х слов: green, white, brown. Цвет глаз может быть null)");
+        messages.add("Введите цвет волос владельца(введите одно из 4-х слов: green, black, orange, white. Цвет волос может быть null)");
         messages.add("Введите национальность владельца(введите одно из 5 слов: united_kingdom, usa, spain, italy, north_korea");
 
 

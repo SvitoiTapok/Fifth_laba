@@ -8,11 +8,16 @@ import java.util.Scanner;
 
 public class CommandReader {
     public static final HashMap<String, Command> commands = new HashMap<>();
-    public static Scanner MainScanner;
+    public static Scanner MainScanner = new Scanner(System.in);
     public static boolean isFileReading = false;
-
-    public static void readCommands(Scanner sc){
-        MainScanner = sc;
+    //для подпрограмм
+    public static Scanner[] previousScanners = new Scanner[10];
+    public static int nesting=0;
+    static {
+        previousScanners[0] = new Scanner(System.in);
+    }
+    public static void readCommands(){
+        //MainScanner = sc;
 
         commands.put("help", Help.HELP);
         commands.put("info", Info.INFO);
@@ -30,11 +35,12 @@ public class CommandReader {
         commands.put("average_of_price", Average_of_price.AVERAGE_OF_PRICE);
         commands.put("filter_starts_with_name", Filter_starts_with_name.FILTER_STARTS_WITH_NAME);
         commands.put("filter_less_than_owner", Filter_less_than_owner.FILTER_LESS_THAN_OWNER);
+        commands.put("write", Write.WRITE);
 
 
-        while (sc.hasNextLine()){
+        while (MainScanner.hasNextLine()){
             //String input = sc.nextLine();
-            String[] splitedInput = sc.nextLine().split(" ");
+            String[] splitedInput = MainScanner.nextLine().split(" ");
             //если команда есть в списке вызываем ее без параметров или с параметрами в зависимости от инпута
             if (commands.containsKey(splitedInput[0])){
                 if(splitedInput.length==1) {
@@ -45,7 +51,11 @@ public class CommandReader {
             }else {
                 System.out.println("команды " + splitedInput[0] + " не было найдено. Пожалуйста, введите help для получения доступного списка команд");
             }
+        }
+        if(isFileReading){
+            MainScanner = previousScanners[nesting-1];
 
+            //System.out.println(MainScanner.nextLine() +"cr");
         }
     }
 }

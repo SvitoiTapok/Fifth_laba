@@ -29,8 +29,13 @@ public class Update implements Command{
             return;
         }
         long id = Long.parseLong(p[0]);
-        Product updatedProduct = Product.createProduct(id);
-        ProductCollection.PRODUCT_COLLECTION.addProduct(updatedProduct);
+        if(!Product.ID.contains(id))
+            System.out.println("элемента с введенным id не существует, пожалуйста, введите существующий id");
+        else {
+            Product updatedProduct = Product.createProduct(id);
+            //в ProductCollection прописан адд продукт, который заменяет существующий
+            ProductCollection.PRODUCT_COLLECTION.addProduct(updatedProduct);
+        }
 
         //два варианта: id уже существует и id не существует
 

@@ -13,9 +13,10 @@ public class Execute_script implements Command{
     /**
      * Поле, показывающее вложенность вызовов скриптов(если его не ограничить, возможно появление бесконечной рекурсии)
      */
-    public static int nesting=0;
+
     public static final Execute_script EXECUTE_SCRIPT = new Execute_script();
-    private Execute_script(){};
+
+    private Execute_script(){CommandReader.previousScanners[0] = new Scanner(System.in);}
 
     /**
      * метод, вызывающий скрипт из файла
@@ -34,23 +35,40 @@ public class Execute_script implements Command{
         //    return;
         //}
         try {
-            FileReader fileReader = new FileReader(path.toFile());
-            int st;
-            String json="";
-            while ((st = fileReader.read()) != -1)
-                json += (char) st;
-            System.out.println("скрипт " + path + " начал выполнение");
-            CommandReader.MainScanner = new Scanner(json);
-            CommandReader.isFileReading = true;
-            nesting++;
-            if(nesting>=10){
+
+            if(CommandReader.nesting>=10){
                 System.out.println("Достигнута максимальная вложенность скриптов, пожалуйста, избегайте вызова скрипта в скрипте");
-            }else
-                CommandReader.readCommands(CommandReader.MainScanner);
-            nesting--;
-            CommandReader.MainScanner = new Scanner(System.in);
-            CommandReader.isFileReading = false;
-            System.out.println("скрипт выполнен");
+                CommandReader.nesting++;
+            }else {
+                FileReader fileReader = new FileReader(path.toFile());
+                int st;
+                String script="";
+                while ((st = fileReader.read()) != -1)
+                    script += (char) st;
+                System.out.println("скрипт " + path + " начал выполнение");
+                //сохранение сканера для возврата к нему после выполнение другого скрипта
+                String savedScannerData = "";
+                if(CommandReader.nesting>0) {
+                    while (CommandReader.MainScanner.hasNextLine()) {
+                        savedScannerData += CommandReader.MainScanner.nextLine()+"\n";
+                        //System.out.println(savedScannerData);
+                    }
+                    CommandReader.previousScanners[CommandReader.nesting] = new Scanner(savedScannerData);
+                    //System.out.println(savedScannerData);
+                }
+                CommandReader.nesting++;
+                CommandReader.MainScanner = new Scanner(script);
+                CommandReader.isFileReading = true;
+                CommandReader.readCommands();
+                System.out.println("скрипт выполнен");//+ текущая вложенность"+ (CommandReader.nesting-1));
+            }
+            CommandReader.nesting--;
+            //System.out.println(CommandReader.MainScanner.nextLine());
+            //CommandReader.MainScanner = previousScanners[nesting];
+            if(CommandReader.nesting==0) {
+                CommandReader.isFileReading = false;
+            }
+
         }catch (IOException e){
             System.out.println("некорректный путь к файлу");
         }catch (SecurityException e){
