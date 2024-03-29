@@ -58,28 +58,19 @@ public class Product implements Comparable<Product> {
     }
     @Override
     public int compareTo(Product p) {
-        //if (p.name.toLowerCase().equals(name.toLowerCase()))
-        //    return 0;
-        //String[] a = {p.name.toLowerCase(), this.name.toLowerCase()};
-        //List<String> list = Arrays.stream(a).sorted().toList();
-        ////System.out.println(list);
-        //if (list.get(0).equals(p.name.toLowerCase()))
-        //    return -1;
-        //else
-        //    return 1;
-        return p.getName().toLowerCase().compareTo(this.getName().toLowerCase());
+        return this.getName().toLowerCase().compareTo(p.getName().toLowerCase());
     }
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", coordinates=" + coordinates +
-                ", creationDate=" + creationDate +
-                ", price=" + price +
-                ", unitOfMeasure=" + unitOfMeasure +
-                ", owner=" + owner +
+        return "Product{" + "\n" +
+                "\t" + "id=" + id + ",\n" +
+                "\t" + "name='" + name + '\'' + ",\n" +
+                "\t" + "coordinates=" + coordinates + ",\n" +
+                "\t" + "creationDate=" + creationDate + ",\n" +
+                "\t" + "price=" + price + ",\n" +
+                "\t" + "UnitOfMeasure=" + unitOfMeasure + ",\n" +
+                "\t" + "owner=" + owner + "\n" +
                 '}';
     }
 
@@ -167,8 +158,8 @@ public class Product implements Comparable<Product> {
         messages.add("Введите единицу измерения продукта(введите одно из 3-х слов: kilograms, grams, square_meters)");
         messages.add("Введите имя владельца(ввод не может быть пустым)");
         messages.add("Введите ID паспорта владельца(не может быть пустым)");
-        messages.add("Введите цвет глаз владельца(введите одно из 3-х слов: green, white, brown)");
-        messages.add("Введите цвет волос владельца(введите одно из 4-х слов: green, black, orange, white)");
+        messages.add("Введите цвет глаз владельца(введите одно из 3-х слов: green, white, brown. Цвет глаз может быть null)");
+        messages.add("Введите цвет волос владельца(введите одно из 4-х слов: green, black, orange, white. Цвет глаз может быть null)");
         messages.add("Введите национальность владельца(введите одно из 5 слов: united_kingdom, usa, spain, italy, north_korea)");
 
 
@@ -233,11 +224,17 @@ public class Product implements Comparable<Product> {
                         step++;
                         break;
                     case (6):
-                        productOwner.setEyeColor(EyeColor.valueOf(input.toUpperCase()));
+                        if(input.isEmpty())
+                            productOwner.setEyeColor(null);
+                        else
+                            productOwner.setEyeColor(EyeColor.valueOf(input.toUpperCase()));
                         step++;
                         break;
                     case (7):
-                        productOwner.setHairColor(HairColor.valueOf(input.toUpperCase()));
+                        if(input.isEmpty())
+                            productOwner.setHairColor(null);
+                        else
+                            productOwner.setHairColor(HairColor.valueOf(input.toUpperCase()));
                         step++;
                         break;
                     case (8):

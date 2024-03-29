@@ -3,6 +3,8 @@ package Commands;
 import MainClasses.CommandReader;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 /**
  * Класс команды, позволяющей вызывать команды из переданного файла
@@ -25,14 +27,20 @@ public class Execute_script implements Command{
             System.out.println("эта функция принимает только один аргумент");
             return;
         }
-        String path = System.getenv(p[0]);
-        if(path == null){
-            System.out.println("системной переменной с именем " + p[0] + " не было найдено");
-            return;
-        }
-        try (InputStream inputStream = new FileInputStream(path)){
+        //теперь это аргумент - путь в Data)
+        Path path = Paths.get("Data", p[0]);
+        //if(path == null){
+        //    System.out.println("системной переменной с именем " + p[0] + " не было найдено");
+        //    return;
+        //}
+        try {
+            FileReader fileReader = new FileReader(path.toFile());
+            int st;
+            String json="";
+            while ((st = fileReader.read()) != -1)
+                json += (char) st;
             System.out.println("скрипт " + path + " начал выполнение");
-            CommandReader.MainScanner = new Scanner(inputStream);
+            CommandReader.MainScanner = new Scanner(json);
             CommandReader.isFileReading = true;
             nesting++;
             if(nesting>=10){

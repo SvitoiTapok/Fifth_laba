@@ -35,6 +35,14 @@ public class Person implements Comparable<Person>{
         return true;
     }
 
+    public boolean setPassportID(String passportID) {
+        if(passportID == null || passportID.isEmpty()){
+            return false;
+        }
+        this.passportID = passportID;
+        return true;
+    }
+
     public void setEyeColor(EyeColor eyeColor) {
         this.eyeColor = eyeColor;
     }
@@ -47,13 +55,7 @@ public class Person implements Comparable<Person>{
         this.nationality = nationality;
     }
 
-    public boolean setPassportID(String passportID) {
-        if(passportID == null){
-            return false;
-        }
-        this.passportID = passportID;
-        return true;
-    }
+
 
 
     public String getName() {
@@ -78,18 +80,18 @@ public class Person implements Comparable<Person>{
 
     @Override
     public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", passportID='" + passportID + '\'' +
-                ", eyeColor=" + eyeColor +
-                ", hairColor=" + hairColor +
-                ", nationality=" + nationality +
-                '}';
+        return "Person{" + "\n" +
+                "\t\t" + "name='" + name + '\'' + ",\n" +
+                "\t\t" + "passportID='" + passportID + '\'' + ",\n" +
+                "\t\t" + "eyeColor=" + eyeColor + ",\n" +
+                "\t\t" + "hairColor=" + hairColor + ",\n" +
+                "\t\t" + "nationality=" + nationality + "\n" +
+                "\t" + '}';
     }
 
     @Override
     public int compareTo(Person o) {
-        return o.getName().toLowerCase().compareTo(this.name.toLowerCase());
+        return this.name.toLowerCase().compareTo(o.getName().toLowerCase());
     }
 
     public static Person createPerson(){

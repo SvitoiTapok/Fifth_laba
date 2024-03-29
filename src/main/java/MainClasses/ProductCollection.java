@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.File;
+import java.io.FileReader;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.util.*;
@@ -16,26 +17,41 @@ public class ProductCollection {
         Creation_date = new Date();
         //чтение из файла
         try {
-            System.out.println(System.getProperty("user.dir"));
-            Path path = Paths.get("Data","ProductsData.json");
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.registerModule(new JavaTimeModule());
-            System.out.println("Создание коллекции на основе файла "+ path);
-            CollectionSaver collectionSaver = objectMapper.readValue(path.toFile(), CollectionSaver.class);
-            LinkedHashSet<Product> products1 = collectionSaver.getProducts();
-            //System.out.println(products1);
+            //чтение пути из переменной окружения FIFTH_LABA_PATH
+            String path = System.getenv("FIFTH_LAB_PATH");
+            if(path == null){
+                System.out.println("системной переменной с именем FIFTH_LABA_PATH не было найдено, создана пустая коллекция");
+            }else {
+                Path collectionPath = Paths.get(path);
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.registerModule(new JavaTimeModule());
+                System.out.println("Создание коллекции на основе файла " + path);
 
-            for (Product product : products1) {
-                if (Collections.frequency(Product.ID, product.getId()) > 1 || product.getId() < 1) {
-                    //System.out.println(Collections.frequency(Product.ID, product.getId()) + " " + product.getId());
-                    System.out.println("Некорректный ID в файле Data\\ProductsData.json");
-                    Product.ID.remove(product.getId());
-                } else {
-                    if (!Product.checkProduct(product))
-                        System.out.println("Некорректное поле в продукте с ID: " + product.getId());
-                    else{
-                        product.ID.add(product.getId());
-                        products.add(product);
+
+                //чтение json в строку с помощью fileReader
+                FileReader fileReader = new FileReader(path);
+                int st;
+                String json="";
+                while ((st = fileReader.read()) != -1)
+                    json += (char) st;
+
+                //конвертация строки в коллекцию
+                CollectionSaver collectionSaver = objectMapper.readValue(collectionPath.toFile(), CollectionSaver.class);
+                LinkedHashSet<Product> products1 = collectionSaver.getProducts();
+                //System.out.println(products1);
+
+                for (Product product : products1) {
+                    if (Collections.frequency(Product.ID, product.getId()) > 1 || product.getId() < 1) {
+                        //System.out.println(Collections.frequency(Product.ID, product.getId()) + " " + product.getId());
+                        System.out.println("Некорректный ID в файле Data\\ProductsData.json");
+                        Product.ID.remove(product.getId());
+                    } else {
+                        if (!Product.checkProduct(product))
+                            System.out.println("Некорректное поле в продукте с ID: " + product.getId());
+                        else {
+                            product.ID.add(product.getId());
+                            products.add(product);
+                        }
                     }
                 }
             }
