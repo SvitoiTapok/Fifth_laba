@@ -25,7 +25,7 @@ public class Save implements Command {
     public void execute() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        String path = System.getenv("FIFTH_LAB_PATH");
+        String path = System.getenv("FIFTH_LABA_PATH");
         if (path == null) {
             System.out.println("системной переменной с именем FIFTH_LABA_PATH не было найдено, создана пустая коллекция");
         } else {

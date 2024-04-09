@@ -19,7 +19,7 @@ public class Remove_lower implements Command{
     public void execute() {
         Product product = Product.createProduct(null);
         if(product!=null) {
-            ProductCollection.PRODUCT_COLLECTION.addProduct(product);
+            //ProductCollection.PRODUCT_COLLECTION.addProduct(product);
             LinkedHashSet<Product> prods = ProductCollection.PRODUCT_COLLECTION.getProducts();
             LinkedHashSet<Product> removedProds = new LinkedHashSet<>();
             for(Product prod: prods){

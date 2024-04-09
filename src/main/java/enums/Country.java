@@ -5,5 +5,6 @@ public enum Country {
     USA,
     SPAIN,
     ITALY,
-    NORTH_KOREA;
+    NORTH_KOREA,
+    UZBEK;
 }

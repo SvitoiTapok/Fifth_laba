@@ -18,7 +18,7 @@ public class ProductCollection {
         //чтение из файла
         try {
             //чтение пути из переменной окружения FIFTH_LABA_PATH
-            String path = System.getenv("FIFTH_LAB_PATH");
+            String path = System.getenv("FIFTH_LABA_PATH");
             if(path == null){
                 System.out.println("системной переменной с именем FIFTH_LABA_PATH не было найдено, создана пустая коллекция");
             }else {

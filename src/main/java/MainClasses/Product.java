@@ -37,17 +37,20 @@ public class Product implements Comparable<Product> {
         this.unitOfMeasure = unitOfMeasure;
         this.owner = owner;
     }
-    public Product(long id){
+
+    public Product(long id) {
         this.id = id;
         ID.add(id);
         this.creationDate = ZonedDateTime.now();
     }
+
     public Product(@JsonProperty("id") Long id) {
         ID.add(id);
         this.id = id;
         this.creationDate = ZonedDateTime.now();
     }
-    public Product(){
+
+    public Product() {
         long i = 1;
         while (ID.contains(i))
             i++;
@@ -56,6 +59,7 @@ public class Product implements Comparable<Product> {
 
         this.creationDate = ZonedDateTime.now();
     }
+
     @Override
     public int compareTo(Product p) {
         return this.getName().toLowerCase().compareTo(p.getName().toLowerCase());
@@ -145,9 +149,9 @@ public class Product implements Comparable<Product> {
         Product addedProduct;
         if (id == null) {
             addedProduct = new Product();
-        }
-        else
+        } else {
             addedProduct = new Product(id);
+        }
         Person productOwner = new Person();
         Coordinates productCoordinates = new Coordinates();
         int step = 0;
@@ -157,21 +161,21 @@ public class Product implements Comparable<Product> {
         messages.add("Введите цену продукта(она может быть не целой, но обязательно положительной)");
         messages.add("Введите единицу измерения продукта(введите одно из 3-х слов: kilograms, grams, square_meters)");
         messages.add("Введите имя владельца(ввод не может быть пустым)");
-        messages.add("Введите ID паспорта владельца");
+        messages.add("Введите ID паспорта владельца(ввод не может быть пустым)");
         messages.add("Введите цвет глаз владельца(введите одно из 3-х слов: green, white, brown. Цвет глаз может быть null)");
         messages.add("Введите цвет волос владельца(введите одно из 4-х слов: green, black, orange, white. Цвет волос может быть null)");
         messages.add("Введите национальность владельца(введите одно из 5 слов: united_kingdom, usa, spain, italy, north_korea)");
 
-        if(!CommandReader.isFileReading)
+        if (!CommandReader.isFileReading)
             System.out.println("Пожалуйста, следуйте указаниям по вводу, чтобы создать новый продукт. Если вы хотите прервать ввод и вернуться к другим командам, введите stop. \nТакже вы можете вернуться к предыдущему параметру, введя z(но будьте осторожны! предыдущее значение будет стерто. Для введения в поле значения null просто введите пустую строку");
-        String input="";
+        String input = "";
         while (step != -1 && step != 9) {
 //            if(CommandReader.isFileReading && !sc.hasNextLine()){
 //                step=-2;
 //                break;
 //            }
             try {
-                if(!CommandReader.isFileReading) {
+                if (!CommandReader.isFileReading) {
                     System.out.println(messages.get(step));
                 }
                 input = sc.nextLine();
@@ -226,14 +230,14 @@ public class Product implements Comparable<Product> {
                         step++;
                         break;
                     case (6):
-                        if(input.isEmpty())
+                        if (input.isEmpty())
                             productOwner.setEyeColor(null);
                         else
                             productOwner.setEyeColor(EyeColor.valueOf(input.toUpperCase()));
                         step++;
                         break;
                     case (7):
-                        if(input.isEmpty())
+                        if (input.isEmpty())
                             productOwner.setHairColor(null);
                         else
                             productOwner.setHairColor(HairColor.valueOf(input.toUpperCase()));
@@ -248,12 +252,11 @@ public class Product implements Comparable<Product> {
                         break;
 
                 }
-            }catch (NoSuchElementException e){
+            } catch (NoSuchElementException e) {
                 System.out.println("файл кончился, процесс создания продукта не завершен");
                 Product.ID.remove(addedProduct.getId());
                 return null;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("некорректный ввод!");
             }
 
@@ -261,7 +264,7 @@ public class Product implements Comparable<Product> {
         if (step == -1) {
             System.out.println("Процесс добавления был прерван, вы вернулись к вводу команд");
             return null;
-        }else {
+        } else {
             System.out.println("Продукт успешно создан");
             return addedProduct;
 //            if(step==9) {
@@ -273,7 +276,8 @@ public class Product implements Comparable<Product> {
 //            }
         }
     }
-    public static boolean checkProduct(Product product){
+
+    public static boolean checkProduct(Product product) {
         return product.name != null && product.coordinates != null &&
                 !(product.coordinates.getX() < -626) && product.coordinates.getY() <= 677 && product.coordinates.getY() != null &&
                 product.price != null && product.price >= 0 && product.unitOfMeasure != null && product.owner != null &&
