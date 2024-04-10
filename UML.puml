@@ -1,0 +1,210 @@
+@startuml
+class MainClasses.CollectionSaver {
+- LinkedHashSet<Product> products
++ void add(Product)
++ LinkedHashSet<Product> getProducts()
+}
+class Commands.Add_if_min {
++ {static} Add_if_min ADD_IF_MIN
++ void execute()
+}
+class Commands.Remove_lower {
++ {static} Remove_lower REMOVE_LOWER
++ void execute()
+}
+class Commands.Filter_less_than_owner {
++ {static} Filter_less_than_owner FILTER_LESS_THAN_OWNER
++ void execute()
+}
+class Commands.Average_of_price {
++ {static} Average_of_price AVERAGE_OF_PRICE
++ void execute()
+}
+class Commands.Clear {
++ {static} Clear CLEAR
++ void execute()
+}
+enum enums.HairColor {
++  GREEN
++  BLACK
++  ORANGE
++  WHITE
+}
+enum enums.EyeColor {
++  GREEN
++  WHITE
++  BROWN
+}
+class Commands.Save {
++ {static} Save SAVE
++ void execute()
+}
+class InnerClasses.Coordinates {
+- double x
+- Float y
++ boolean setX(double)
++ boolean setY(Float)
++ double getX()
++ Float getY()
++ String toString()
+}
+class MainClasses.Main {
++ {static} void main(String[])
+}
+interface Commands.Command {
+~ void execute()
+~ void executeWithParameters(String[])
+}
+class Commands.Filter_starts_with_name {
++ {static} Filter_starts_with_name FILTER_STARTS_WITH_NAME
++ void executeWithParameters(String[])
+}
+class Commands.Exit {
++ {static} Exit EXIT
++ void execute()
+}
+class MainClasses.CommandReader {
++ {static} HashMap<String,Command> commands
++ {static} Scanner MainScanner
++ {static} boolean isFileReading
++ {static} Scanner[] previousScanners
++ {static} int nesting
++ {static} void readCommands()
+}
+class Commands.Execute_script {
++ {static} Execute_script EXECUTE_SCRIPT
++ void executeWithParameters(String[])
+}
+class MainClasses.Product {
++ {static} ArrayList<Long> ID
+- long id
+- String name
+- Coordinates coordinates
+- ZonedDateTime creationDate
+- Float price
+- UnitOfMeasure unitOfMeasure
+- Person owner
++ int compareTo(Product)
++ String toString()
++ boolean setName(String)
++ void setCoordinates(Coordinates)
++ void setOwner(Person)
++ boolean setPrice(Float)
++ void setUnitOfMeasure(UnitOfMeasure)
++ long getId()
++ ZonedDateTime getCreationDate()
++ {static} long getCountOfProducts()
++ UnitOfMeasure getUnitOfMeasure()
++ Coordinates getCoordinates()
++ {static} ArrayList<Long> getID()
++ Float getPrice()
++ String getName()
++ Person getOwner()
++ {static} Product createProduct(Long)
++ {static} boolean checkProduct(Product)
+}
+enum enums.UnitOfMeasure {
++  KILOGRAMS
++  SQUARE_METERS
++  GRAMS
+}
+class Commands.Show {
++ {static} Show SHOW
++ void execute()
+}
+class Commands.Update {
++ {static} Update UPDATE
++ void executeWithParameters(String[])
+}
+class Commands.Add {
++ {static} Add ADD
++ void execute()
+}
+class Commands.Remove_By_ID {
++ {static} Remove_By_ID REMOVE
++ void executeWithParameters(String[])
+}
+class MainClasses.ProductCollection {
++ {static} ProductCollection PRODUCT_COLLECTION
+- LinkedHashSet<Product> products
+- Date Creation_date
++ LinkedHashSet<Product> getProducts()
++ void addProduct(Collection<Product>)
++ void addProduct(Product)
++ void removeProduct(long)
++ void removeProducts(Collection<Product>)
++ Date getData()
++ int getLen()
++ void clearCollection()
++ Product getMinProduct()
+}
+class InnerClasses.Month {
+- {static} HashMap<String,String> mounths
++ {static} String getMounthTranslation(String)
+}
+class Commands.Help {
++ {static} Help HELP
++ void execute()
+}
+class Commands.Remove_greater {
++ {static} Remove_greater REMOVE_GREATER
++ void execute()
+}
+class Commands.Info {
++ {static} Info INFO
++ void execute()
+}
+class InnerClasses.Person {
+- String name
+- String passportID
+- EyeColor eyeColor
+- HairColor hairColor
+- Country nationality
++ boolean setName(String)
++ boolean setPassportID(String)
++ void setEyeColor(EyeColor)
++ void setHairColor(HairColor)
++ void setNationality(Country)
++ String getName()
++ Country getNationality()
++ EyeColor getEyeColor()
++ HairColor getHairColor()
++ String getPassportID()
++ String toString()
++ int compareTo(Person)
++ {static} Person createPerson()
+}
+enum enums.Country {
++  UNITED_KINGDOM
++  USA
++  SPAIN
++  ITALY
++  NORTH_KOREA
++  UZBEK
+}
+class Commands.Write {
++ {static} Write WRITE
++ void executeWithParameters(String[])
+}
+
+
+Commands.Command <|.. Commands.Add_if_min
+Commands.Command <|.. Commands.Remove_lower
+Commands.Command <|.. Commands.Filter_less_than_owner
+Commands.Command <|.. Commands.Average_of_price
+Commands.Command <|.. Commands.Clear
+Commands.Command <|.. Commands.Save
+Commands.Command <|.. Commands.Filter_starts_with_name
+Commands.Command <|.. Commands.Exit
+Commands.Command <|.. Commands.Execute_script
+MainClasses.Comparable <|.. MainClasses.Product
+Commands.Command <|.. Commands.Show
+Commands.Command <|.. Commands.Update
+Commands.Command <|.. Commands.Add
+Commands.Command <|.. Commands.Remove_By_ID
+Commands.Command <|.. Commands.Help
+Commands.Command <|.. Commands.Remove_greater
+Commands.Command <|.. Commands.Info
+InnerClasses.Comparable <|.. InnerClasses.Person
+Commands.Command <|.. Commands.Write
+@enduml
