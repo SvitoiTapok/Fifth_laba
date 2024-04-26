@@ -1,18 +1,19 @@
-package Commands;
+package commands;
+
+import mainClasses.ProductCollection;
+
+import java.util.Scanner;
 
 /**
  * Класс команды, заканчивающий выполнение программы
  */
 
 public class Exit implements Command{
-    public static final Exit EXIT = new Exit();
-
-    private Exit(){}
     /**
      * метод, заканчивающий выполнение программы
      */
     @Override
-    public void execute() {
+    public void execute(Scanner sc, ProductCollection productCollection, boolean isFileReading) {
         System.out.println("Программа была завершена");
         System.exit(0);
     }

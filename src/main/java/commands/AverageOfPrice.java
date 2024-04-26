@@ -1,29 +1,28 @@
-package Commands;
+package commands;
 
-import MainClasses.Product;
-import MainClasses.ProductCollection;
+import mainClasses.Product;
+import mainClasses.ProductCollection;
+
+import java.util.Scanner;
 
 /**
  * Класс, команды возвращающей среднее значение цены у всех элементов коллекции
  */
 
-public class Average_of_price implements Command{
-    public final static Average_of_price AVERAGE_OF_PRICE = new Average_of_price();
-
-    private Average_of_price(){}
+public class AverageOfPrice implements Command{
     /**
      * метод, выводящий в консоль среднее значение цены у всех элементов коллекции
      */
 
     @Override
-    public void execute() {
-        if(ProductCollection.PRODUCT_COLLECTION.getLen()==0)
+    public void execute(Scanner sc, ProductCollection productCollection, boolean isFileReading) {
+        if(productCollection.getLen()==0)
             System.out.println("В коллекции нет ни одного продукта, пожалуйста, добавьте их");
         else {
             System.out.print("Cреднее значение цены по всем продуктам: ");
-            System.out.println(Math.round(ProductCollection.PRODUCT_COLLECTION.getProducts().stream()
+            System.out.println(Math.round(productCollection.getProducts().stream()
                     .map(Product::getPrice).reduce(Float::sum).get() /
-                    ProductCollection.PRODUCT_COLLECTION.getLen() * 100000) / 100000);
+                    productCollection.getLen() * 100000) / 100000);
         }
     }
 }

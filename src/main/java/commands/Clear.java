@@ -1,22 +1,20 @@
-package Commands;
+package commands;
 
-import MainClasses.ProductCollection;
+import mainClasses.ProductCollection;
+
+import java.util.Scanner;
+
 /**
  * Класс, команды очищающей коллекцию
  */
 
 public class Clear implements Command{
-    public final static Clear CLEAR = new Clear();
-
-
-
-    private Clear(){};
     /**
      * метод, очищающий коллекцию
      */
     @Override
-    public void execute() {
-        ProductCollection.PRODUCT_COLLECTION.clearCollection();
+    public void execute(Scanner sc, ProductCollection productCollection, boolean isFileReading) {
+        productCollection.clearCollection();
         System.out.println("Коллекция очищена");
     }
 }

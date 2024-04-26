@@ -1,4 +1,4 @@
-package InnerClasses;
+package innerClasses;
 
 import java.util.HashMap;
 

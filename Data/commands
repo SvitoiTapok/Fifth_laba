@@ -1,6 +1,8 @@
 write 1
 execute_script commands
 write 2
+execute_script commands
+write 3
 add
 dfadfas
 7 7

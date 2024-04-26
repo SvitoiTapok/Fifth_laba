@@ -1,26 +1,25 @@
-package Commands;
+package commands;
 
-import MainClasses.Product;
-import MainClasses.ProductCollection;
+import mainClasses.Product;
+import mainClasses.ProductCollection;
+
+import java.util.Scanner;
 
 /**
  * Класс команды, выводящий элементы коллекции в консоль
  * */
 
 public class Show implements Command{
-    public final static Show SHOW = new Show();
-
-    private Show(){}
     /**
      * метод, Выводящий все элементы коллекции в консоль(вызывает to string у ProductCollection)
      */
     @Override
-    public void execute(){
-        if(ProductCollection.PRODUCT_COLLECTION.getProducts().isEmpty()){
+    public void execute(Scanner sc, ProductCollection productCollection, boolean isFileReading){
+        if(productCollection.getProducts().isEmpty()){
             System.out.println("На данный момент в коллекции нет элементов");
             return;
         }
-        for(Product product: ProductCollection.PRODUCT_COLLECTION.getProducts()){
+        for(Product product: productCollection.getProducts()){
             System.out.println(product);
         }
         System.out.println();

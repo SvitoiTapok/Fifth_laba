@@ -1,20 +1,19 @@
-package Commands;
+package commands;
+
+import mainClasses.ProductCollection;
+
+import java.util.Scanner;
 
 /**
  * Класс команды, выводящей все доступные команды
  */
 
 public class Help implements Command{
-    public final static Help HELP = new Help();
-
-
-
-    private Help(){};
     /**
      * метод, вывоящий в консоль все доступные команды с описанием
      */
     @Override
-    public void execute(){
+    public void execute(Scanner sc, ProductCollection productCollection, boolean isFileReading){
         System.out.println("Вот все доступные команды с описанием:");
         System.out.println("help : вывести справку по доступным командам\n" +
                 "info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)\n" +

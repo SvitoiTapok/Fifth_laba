@@ -1,26 +1,25 @@
-package Commands;
+package commands;
 
-import InnerClasses.Person;
-import MainClasses.Product;
-import MainClasses.ProductCollection;
+import innerClasses.Person;
+import mainClasses.Product;
+import mainClasses.ProductCollection;
 
 import java.util.LinkedHashSet;
+import java.util.Scanner;
 
 /**
  * Класс команды, выводящей все элементы коллекции, значение поля owner которых меньше заданного(сравнение производится сравнением имени владельца лексикографическим порядком)
  */
 
-public class Filter_less_than_owner implements Command{
-    public static final Filter_less_than_owner FILTER_LESS_THAN_OWNER = new Filter_less_than_owner();
-    private Filter_less_than_owner(){};
+public class FilterLessThanOwner implements Command{
     /**
      * метод, создающий объект Person и выводящий в консоль все элементы коллекции, значение поля owner которых меньше созданного
      */
     @Override
-    public void execute() {
-        Person owner = Person.createPerson();
+    public void execute(Scanner sc, ProductCollection productCollection, boolean isFileReading) {
+        Person owner = Person.createPerson(sc, isFileReading);
         if(owner!=null) {
-            LinkedHashSet<Product> products = ProductCollection.PRODUCT_COLLECTION.getProducts();
+            LinkedHashSet<Product> products = productCollection.getProducts();
             System.out.println("Все продукты, имена владельцев которых меньше в лексикографическом порядке:");
             for (Product product : products) {
                 if (product.getOwner().compareTo(owner) < 0)
@@ -30,4 +29,5 @@ public class Filter_less_than_owner implements Command{
             //System.out.println(products);
         }
     }
+
 }

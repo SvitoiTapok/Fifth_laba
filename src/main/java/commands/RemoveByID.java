@@ -1,19 +1,24 @@
-package Commands;
+package commands;
 
-import MainClasses.ProductCollection;
+import mainClasses.ProductCollection;
+
+import java.util.Scanner;
+
 /**
  * Класс команды, удаляющей из коллекции элемент по id
  */
 
-public class Remove_By_ID implements Command{
-    public final static Remove_By_ID REMOVE = new Remove_By_ID();
-    private Remove_By_ID(){}
+public class RemoveByID implements Command{
     /**
      * метод, удаляляющий элемент из коллекции по заданному id(если элемента нет, то команда не делает ничего
-     * @param p передается id(он должен быть типа long). при передаче более чем одного параметра команда выведет предупреждение
+     *
+     * @param sc
+     * @param productCollection
+     * @param p                 передается id(он должен быть типа long). при передаче более чем одного параметра команда выведет предупреждение
+     * @param isFileReading
      */
     @Override
-    public void executeWithParameters(String[] p) {
+    public void executeWithParameters(Scanner sc, ProductCollection productCollection, String[] p, boolean isFileReading) {
         if(p.length>1){
             System.out.println("эта функция принимает только один аргумент");
             return;
@@ -26,7 +31,7 @@ public class Remove_By_ID implements Command{
             return;
         }
         long id = Long.parseLong(p[0]);
-        ProductCollection.PRODUCT_COLLECTION.removeProduct(id);
+        productCollection.removeProduct(id);
         System.out.println("объект с id=" + id + "(если такой был) удален");
     }
 }

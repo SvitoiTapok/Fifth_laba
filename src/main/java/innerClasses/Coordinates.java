@@ -1,4 +1,4 @@
-package InnerClasses;
+package innerClasses;
 
 /**
  * Класс содержащий координаты продукта
@@ -24,17 +24,20 @@ public class Coordinates {
     /**
      * устанавливает данное значение x и возвращает true если переданное значение удовлетворяет ОДЗ
      */
-    public boolean setX(double x) {
-        if(x<=-627)
-            return false;
+    public void setX(double x) {
         this.x = x;
-        return true;
     }
-    public boolean setY(Float y) {
-        if(y>677 || y==null)
-            return false;
+
+    public static boolean checkX(double x){
+        return x>-627;
+    }
+
+    public void setY(Float y) {
         this.y = y;
-        return true;
+    }
+
+    public static boolean checkY(Float y){
+        return y<677;
     }
 
     public double getX() {
